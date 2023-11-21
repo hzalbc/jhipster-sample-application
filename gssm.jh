@@ -1,0 +1,47 @@
+entity Student {
+    id Long,
+    name String,
+    level String,
+    year Integer
+}
+
+entity Teacher {
+    id Long,
+    name String
+}
+
+entity Course {
+    id Long,
+    name String,
+    level String,
+    year Integer,
+    teacherID Long
+}
+
+entity Payment {
+    id Long,
+    studentID Long,
+    courseID Long,
+    amount BigDecimal,
+    status String,
+    paymentDate LocalDate
+}
+
+entity Attendance {
+    id Long,
+    studentID Long,
+    courseID Long,
+    date LocalDate,
+    status String
+}
+
+relationship ManyToOne {
+    Course{teacherID} to Teacher{course},
+    Payment{studentID} to Student{payment},
+    Payment{courseID} to Course{payment},
+    Attendance{studentID} to Student{attendance},
+    Attendance{courseID} to Course{attendance}
+}
+
+paginate Student, Teacher, Course, Payment, Attendance with pagination
+service all with serviceClass
